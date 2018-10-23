@@ -1,0 +1,13 @@
+.navbarContainer {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: #eee solid 1px;
+  padding: 0px 64px;
+  height: 56px;
+  background: white;
+  top: 0;
+  left: 0;
+}

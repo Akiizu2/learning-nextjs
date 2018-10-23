@@ -1,0 +1,55 @@
+@import '../../theme/color';
+.inputContainer {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-self: stretch;
+  align-items: flex-start;
+  margin: 8px;
+  .inputWrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-self: stretch;
+    position: relative;
+    .label {
+      pointer-events: none;
+      font-size: 14px;
+      margin-bottom: 4px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      left: 16px;
+      color: #999;
+      transition: transform 240ms cubic-bezier(0.075, 0.82, 0.165, 1), font-size 240ms cubic-bezier(0.075, 0.82, 0.165, 1);
+      &.focusing {
+        font-weight: 600;
+        background: white;
+        color: $primary;
+        border-radius: 10px;
+        font-size: 11px;
+        padding: 0px 4px;
+        transform: translateY(-225%);
+        transition: transform 240ms cubic-bezier(0.075, 0.82, 0.165, 1), font-size 240ms cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+    }
+    input {
+      height: 46px;
+      align-self: stretch;
+      border-radius: 5px;
+      border: #eee solid 2px;
+      padding: 0px 16px;
+      outline: none;
+      transition: border-width 240ms cubic-bezier(0.075, 0.82, 0.165, 1);
+      &:focus {
+        border: $primary solid 2px;
+        transition: border-width 240ms cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+    }
+  }
+  .hintText {
+    font-size: 12px;
+    min-height: 12px;
+    margin-top: 8px;
+  }
+}

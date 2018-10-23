@@ -1,0 +1,7 @@
+@mixin typography($type) {
+  @if $type=="button" {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
