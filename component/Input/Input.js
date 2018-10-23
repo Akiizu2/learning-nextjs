@@ -10,7 +10,7 @@ class Input extends Component {
 
   static defaultProps = {
     label: 'Label',
-    hinttext: '',
+    hinttext: null,
   }
 
   static propTypes = {

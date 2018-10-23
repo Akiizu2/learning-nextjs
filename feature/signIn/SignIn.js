@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import styles from './signIn.module.scss'
 import { Button, Input } from '../../component'
-import { signIn } from '../../firebase'
+import { signIn } from '../../firebase/auth'
 
 class SignIn extends Component {
   state = {
@@ -25,8 +25,9 @@ class SignIn extends Component {
           await signIn(email, password)
         } catch (error) {
           alert(error.code)
+          this.setState({ isLoading: false })
         }
-        this.setState({ isLoading: false })
+
       })
 
     }

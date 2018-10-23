@@ -18,7 +18,10 @@
   "scripts": {
     "start": "next",
     "build": "next build",
-    "start-built": "next start"
+    "start-built": "next start",
+    "start-export": "next export",
+    "buitl-and-start": "yarn build && yarn start-built",
+    "buitl-and-export": "yarn build && yarn start-export"
   },
   "eslintConfig": {
     "extends": "react-app"

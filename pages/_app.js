@@ -3,22 +3,23 @@ import App, { Container } from 'next/app'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
-import { validatePath } from '../routes'
 import {
   SignIn,
   Navbar,
   Sidebar,
   Head,
+  Loading,
 } from '../feature'
 import reducers from '../reducer'
 import styles from '../theme/_app.scss';
 import NotFound from './not-found';
 import {
   initialize,
-  getUser,
 } from '../firebase'
+import { getUser } from '../firebase/auth'
 
 const store = createStore(reducers)
+initialize()
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
@@ -26,27 +27,32 @@ export default class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
-    return { pageProps, router }
-  }
 
+    return { pageProps, router }
+
+  }
+  getUserRef
   state = {
     isInitializing: true,
     isSignedIn: false,
   }
 
   componentDidMount() {
-    initialize()
     this.checkUserStatus()
   }
 
   checkUserStatus = () => {
-    getUser((user) => {
+    getUser(false, (user) => {
       const isSignedIn = (user.type === 'signed_in')
       this.setState({
         isSignedIn,
         isInitializing: false,
       })
     })
+  }
+
+  componentWillUnmount() {
+    this.getUserRef()
   }
 
   renderApp = () => {
@@ -56,14 +62,13 @@ export default class MyApp extends App {
       router,
     } = this.props
     const { isSignedIn, isInitializing } = this.state
-    const isCorrectRoute = router.asPath === '/' || validatePath(router.asPath)
-    if (!isCorrectRoute) {
+    if (router.pathname === '/_error') {
       return <NotFound />
     }
     if (isInitializing) {
-      return <h1>Loading...</h1>
+      return <Loading />
     }
-    if (isCorrectRoute && !isSignedIn) {
+    if (!isSignedIn) {
       return <SignIn isSignedIn={this._onSignedIn} />
     }
     return (
