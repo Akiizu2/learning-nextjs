@@ -16,7 +16,7 @@ import NotFound from './not-found';
 import {
   initialize,
 } from '../firebase'
-import { getUser } from '../firebase/auth'
+import { getUser, AUTH_CONST } from '../firebase/auth'
 
 const store = createStore(reducers)
 initialize()
@@ -27,11 +27,9 @@ export default class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
-
     return { pageProps, router }
-
   }
-  getUserRef
+
   state = {
     isInitializing: true,
     isSignedIn: false,
@@ -43,16 +41,12 @@ export default class MyApp extends App {
 
   checkUserStatus = () => {
     getUser(false, (user) => {
-      const isSignedIn = (user.type === 'signed_in')
+      const isSignedIn = (user.type === AUTH_CONST.SIGNIN)
       this.setState({
         isSignedIn,
         isInitializing: false,
       })
     })
-  }
-
-  componentWillUnmount() {
-    this.getUserRef()
   }
 
   renderApp = () => {
@@ -69,7 +63,7 @@ export default class MyApp extends App {
       return <Loading />
     }
     if (!isSignedIn) {
-      return <SignIn isSignedIn={this._onSignedIn} />
+      return <SignIn />
     }
     return (
       <React.Fragment>

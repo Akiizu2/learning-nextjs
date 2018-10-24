@@ -18,16 +18,22 @@ class SignIn extends Component {
     const email = this.emailRef.current.value
     const password = this.passwordRef.current.value
     if (!email || !password) {
-      alert('Please fill required fields.')
+      this.setState({ error: 'Please fill required fields.' })
     } else {
-      this.setState({ isLoading: true }, async () => {
+      this.setState({
+        isLoading: true,
+        error: ''
+      }, async () => {
         try {
           await signIn(email, password)
         } catch (error) {
-          alert(error.code)
-          this.setState({ isLoading: false })
+          const { code, message } = error
+          if (code === 'auth/invalid-email') {
+            this.setState({ isLoading: false, error: 'Email is invalid format.' })
+          } else if (code === 'auth/wrong-password') {
+            this.setState({ isLoading: false, error: message })
+          }
         }
-
       })
 
     }
@@ -43,23 +49,43 @@ class SignIn extends Component {
     }
   }
 
+  _validateField = () => {
+    const isDirty = this.emailRef.current.attributes[0].value
+    const isFocused = this.emailRef.current.attributes[1].value
+    if (isFocused === "true" && isDirty === "true") {
+      let error = ''
+      const { valid } = this.emailRef.current.validity
+      if (this.emailRef.current.value === '') {
+        error = 'Email is required.'
+      } else if (!valid) {
+        error = 'Email is invalid format.'
+      }
+      this.setState({ error })
+    }
+  }
+
   render() {
-    const { isLoading } = this.state
+    const {
+      isLoading,
+      error,
+    } = this.state
     return (
       <React.Fragment>
         <Head>
           <title>Sign In</title>
         </Head>
         <div className={styles.container}>
-          <div className={styles.signInBox}>
+          <div className={`${styles.signInBox} ${error !== '' ? styles.errorBox : ''}`}>
             <div className={styles.headerSection}>
               <div>AKI</div>
             </div>
             <div className={styles.formSection}>
               <Input
                 inputref={this.emailRef}
-                type="text"
+                type="email"
                 label="Email"
+                error={error}
+                onBlur={() => this._validateField()}
               />
               <Input
                 inputref={this.passwordRef}

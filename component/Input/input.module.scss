@@ -47,9 +47,16 @@
       }
     }
   }
-  .hintText {
+  .hintText,
+  .errorText {
     font-size: 12px;
     min-height: 12px;
     margin-top: 8px;
+  }
+  .hintText {
+    color: #999;
+  }
+  .errorText {
+    color: red;
   }
 }
