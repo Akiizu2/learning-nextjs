@@ -60,7 +60,12 @@ export default class MyApp extends App {
       return <NotFound />
     }
     if (isInitializing) {
-      return <Loading />
+      return (
+        <React.Fragment>
+          <Head />
+          <Loading />
+        </React.Fragment>
+      )
     }
     if (!isSignedIn) {
       return <SignIn />

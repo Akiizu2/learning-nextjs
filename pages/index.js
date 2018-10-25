@@ -17,15 +17,13 @@ class Index extends Component {
   render() {
     return (
       <React.Fragment>
-        <Head title={`Hello ${this.state.counter}`} />
-        <div style={{ height: 10000 }}></div>
+
       </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state)
   return state
 }
 

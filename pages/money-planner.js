@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class MoneyPlanner extends Component {
-  state = {}
-  render() {
-    return (
-      <div>Money Planner</div>
-    );
-  }
+import { MoneyPlanner } from '../feature'
+const MoneyPlannerPage = (props) => {
+  return (
+    <MoneyPlanner  {...props} />
+  );
 }
 
-export default MoneyPlanner;
+export default MoneyPlannerPage;

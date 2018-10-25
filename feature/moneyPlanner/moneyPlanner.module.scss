@@ -1,0 +1,100 @@
+@import '../../theme/mixin';
+@import '../../theme/color';
+.container {
+  padding: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 16px;
+  grid-auto-rows: minmax(auto, auto);
+  grid-template-areas: "myPocket myPocket ." "expenseBox expenseBox .";
+  .header {
+    width: 100%;
+    display: flex;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 32px;
+  }
+  .myPocket {
+    grid-area: myPocket;
+    @include flex(row);
+    justify-content: space-between; // background: white;// border: #eee solid 1px;
+    flex-wrap: wrap;
+  }
+  .pocketDetailItem {
+    @include flex(column);
+    align-self: stretch;
+    justify-content: center;
+    margin: 8px 0px;
+    padding: 32px;
+    border-radius: 5px;
+    min-width: 200px;
+    background: linear-gradient(45deg, $primary, $primary_variant);
+    box-shadow: 1px 1px 10px 1px #999;
+    color: white;
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .value {
+      font-size: 26px;
+      font-weight: bold;
+    }
+  }
+  .expenseBox {
+    grid-area: expenseBox;
+    @include flex(column);
+    flex-wrap: wrap;
+    .expenseList {
+      flex: 1;
+      align-self: stretch;
+      @include flex(column);
+      .expenseItem {
+        @include flex();
+        width: 400px;
+        align-items: center;
+        padding: 16px;
+        background: white;
+        border-radius: 5px;
+        border: #eee solid 1px;
+        margin: 8px 0px;
+        .icon {
+          @include flex();
+          width: 44px;
+          height: 44px;
+          background: $primary;
+          border-radius: 50%;
+        }
+        .title {
+          flex: 1;
+          @include flex();
+          padding: 0px 16px;
+        }
+      }
+    }
+  }
+  .box {
+    flex: 1;
+    background: white;
+    padding: 16px 32px;
+    @include flex(column);
+    border: #eee solid 1px;
+    padding-bottom: 32px;
+  }
+  .boxHeader {
+    @include flex();
+    color: #333;
+    h4 {
+      padding: 0px;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+  }
+  .boxContent {
+    @include flex(column);
+    align-self: stretch;
+  }
+}
