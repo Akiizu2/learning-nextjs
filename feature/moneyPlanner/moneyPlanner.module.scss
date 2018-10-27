@@ -19,14 +19,14 @@
   .myPocket {
     grid-area: myPocket;
     @include flex(row);
-    justify-content: space-between; // background: white;// border: #eee solid 1px;
+    justify-content: flex-start;
     flex-wrap: wrap;
   }
   .pocketDetailItem {
     @include flex(column);
     align-self: stretch;
     justify-content: center;
-    margin: 8px 0px;
+    margin: 8px;
     padding: 32px;
     border-radius: 5px;
     min-width: 200px;

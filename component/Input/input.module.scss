@@ -40,6 +40,7 @@
       border: #eee solid 2px;
       padding: 0px 16px;
       outline: none;
+      font-size: 14px;
       transition: border-width 240ms cubic-bezier(0.075, 0.82, 0.165, 1);
       &:focus {
         border: $primary solid 2px;

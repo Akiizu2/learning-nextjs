@@ -2,6 +2,7 @@ import React from 'react'
 import App, { Container } from 'next/app'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import Router from 'next/router'
 
 import {
   SignIn,
@@ -33,10 +34,22 @@ export default class MyApp extends App {
   state = {
     isInitializing: true,
     isSignedIn: false,
+    isLoading: false,
+    isCompleteLoading: false,
   }
 
   componentDidMount() {
     this.checkUserStatus()
+
+    Router.events.on('routeChangeStart', () => {
+      console.log('Route Start')
+      this.setState({ isLoading: true })
+    })
+    Router.events.on('routeChangeComplete', () => {
+      console.log('Route Finished')
+      this.setState({ isLoading: false })
+    })
+
   }
 
   checkUserStatus = () => {
@@ -55,6 +68,7 @@ export default class MyApp extends App {
       pageProps,
       router,
     } = this.props
+    console.log('pageProps', this.props)
     const { isSignedIn, isInitializing } = this.state
     if (router.pathname === '/_error') {
       return <NotFound />
@@ -63,7 +77,7 @@ export default class MyApp extends App {
       return (
         <React.Fragment>
           <Head />
-          <Loading />
+          <Loading isLoadingAnimated />
         </React.Fragment>
       )
     }
@@ -75,6 +89,7 @@ export default class MyApp extends App {
         <Head />
         <Sidebar />
         <Navbar />
+        <Loading isInitial={this.state.isLoading} isComplete={this.state.isCompleteLoading} />
         <div className={styles.contentLayout}>
           <Component {...pageProps} />
         </div>

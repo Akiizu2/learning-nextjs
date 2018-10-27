@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styles from './moneyPlanner.module.scss'
 
 class MoneyPlanner extends Component {
+
   state = {
     income: 123123,
     expense: 123121,
@@ -18,6 +19,7 @@ class MoneyPlanner extends Component {
   }
 
   render() {
+    console.log('this.props', this.props.test)
     const { income, expense } = this.state
     return (
       <div className={styles.container}>
