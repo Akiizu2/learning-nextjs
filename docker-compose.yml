@@ -7,7 +7,7 @@ services:
         - ./:/web/aki
       expose:
         - "8089"
-      command: "npm install && nom run build && npm run start-built"
+      command: "npm install"  "npm run build" "npm run start-built"
 networks: 
   default:
     external:
