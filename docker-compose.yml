@@ -1,16 +1,9 @@
 version: '3'
 services:
    aki:
-      image: "node:8"
-      working_dir: /web/aki
-      volumes:
-        - ./:/web/aki
-      expose:
-        - "8089"
-      command: > 
-        bash -c "npm install 
-        && npm run build 
-        && npm run start-built"
+      build: .
+      ports: 
+        - "3000:8089"
 networks: 
   default:
     external:
