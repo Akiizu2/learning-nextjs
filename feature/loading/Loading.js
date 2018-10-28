@@ -7,20 +7,17 @@ class Loading extends Component {
 
   static defaultProps = {
     isInitial: false,
-    isComplete: false,
     isLoadingAnimated: false,
   }
 
   static propTypes = {
     isInitial: PropTypes.bool,
-    isComplete: PropTypes.bool,
     isLoadingAnimated: PropTypes.bool,
   }
 
   render() {
     const {
       isInitial,
-      isComplete,
       isLoadingAnimated,
     } = this.props
     return (

@@ -1,0 +1,14 @@
+version: '3'
+services:
+   aki:
+      image: "node:8"
+      working_dir: /web/aki
+      volumes:
+        - ./:/web/aki
+      expose:
+        - "8089"
+      command: "npm install && nom run build && npm run start-built"
+networks: 
+  default:
+    external:
+      name: server

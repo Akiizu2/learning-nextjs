@@ -89,7 +89,7 @@ export default class MyApp extends App {
         <Head />
         <Sidebar />
         <Navbar />
-        <Loading isInitial={this.state.isLoading} isComplete={this.state.isCompleteLoading} />
+        <Loading isInitial={this.state.isLoading} />
         <div className={styles.contentLayout}>
           <Component {...pageProps} />
         </div>
