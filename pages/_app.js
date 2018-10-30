@@ -22,86 +22,42 @@ import { getUser, AUTH_CONST } from '../firebase/auth'
 const store = createStore(reducers)
 initialize()
 
+
 export default class MyApp extends App {
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {}
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+
+  static async getInitialProps(props) {
+    const user = await getUser(false)
+    const { type } = user
+    const isSignedIn = type !== 'signed_out'
+    return {
+      isSignedIn,
     }
-    return { pageProps, router }
   }
 
   state = {
-    isInitializing: true,
-    isSignedIn: false,
     isLoading: false,
-    isCompleteLoading: false,
-  }
-
-  componentDidMount() {
-    this.checkUserStatus()
-
-    Router.events.on('routeChangeStart', () => {
-      console.log('Route Start')
-      this.setState({ isLoading: true })
-    })
-    Router.events.on('routeChangeComplete', () => {
-      console.log('Route Finished')
-      this.setState({ isLoading: false })
-    })
-
-  }
-
-  checkUserStatus = () => {
-    getUser(false, (user) => {
-      const isSignedIn = (user.type === AUTH_CONST.SIGNIN)
-      this.setState({
-        isSignedIn,
-        isInitializing: false,
-      })
-    })
-  }
-
-  renderApp = () => {
-    const {
-      Component,
-      pageProps,
-      router,
-    } = this.props
-    console.log('pageProps', this.props)
-    const { isSignedIn, isInitializing } = this.state
-    if (router.pathname === '/_error') {
-      return <NotFound />
-    }
-    if (isInitializing) {
-      return (
-        <React.Fragment>
-          <Head />
-          <Loading isLoadingAnimated />
-        </React.Fragment>
-      )
-    }
-    if (!isSignedIn) {
-      return <SignIn />
-    }
-    return (
-      <React.Fragment>
-        <Head />
-        <Sidebar />
-        <Navbar />
-        <Loading isInitial={this.state.isLoading} />
-        <div className={styles.contentLayout}>
-          <Component {...pageProps} />
-        </div>
-      </React.Fragment>
-    )
   }
 
   render() {
+    const {
+      Component,
+      pageProps,
+    } = this.props
     return (
       <Container>
         <Provider store={store}>
-          {this.renderApp()}
+          <>
+            <Head />
+            {this.props.isSignedIn && <Sidebar />}
+            {this.props.isSignedIn && <Navbar />}
+            <Loading isInitial={this.state.isLoading} />
+            <div className={styles.contentLayout}>
+              {this.props.isSignedIn
+                ? <Component {...pageProps} />
+                : <SignIn />
+              }
+            </div>
+          </>
         </Provider>
       </Container >
     )

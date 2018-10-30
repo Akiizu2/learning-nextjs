@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Head from 'next/head'
+import Router from 'next/router'
 
 import styles from './signIn.module.scss'
 import { Button, Input } from '../../component'
@@ -25,7 +26,9 @@ class SignIn extends Component {
         error: ''
       }, async () => {
         try {
-          await signIn(email, password)
+          const cre = await signIn(email, password)
+          console.log('cre', cre)
+          Router.replace('/')
         } catch (error) {
           const { code, message } = error
           if (code === 'auth/invalid-email') {

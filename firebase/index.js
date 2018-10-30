@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-let isInitialized = false
+let app
 
 export const initialize = async () => {
   const config = {
@@ -12,11 +12,9 @@ export const initialize = async () => {
     storageBucket: "aki-utility.appspot.com",
     messagingSenderId: "1039543323959"
   };
-  if (!isInitialized) {
-    firebase.initializeApp(config);
-    isInitialized = true
+  if (!app) {
+    app = firebase.initializeApp(config);
   }
 
-  return await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 }
 

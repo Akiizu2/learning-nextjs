@@ -1,13 +1,15 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import router from 'next/router'
 
 export const AUTH_CONST = {
   SIGNIN: 'signed_in',
   SIGNOUT: 'signed_out',
 }
 
-export const signOut = () => {
-  return firebase.auth().signOut()
+export const signOut = async () => {
+  await firebase.auth().signOut()
+  router.replace('/')
 }
 
 export const getUser = (isOnce = false, callback = () => { }) => {
@@ -16,6 +18,7 @@ export const getUser = (isOnce = false, callback = () => { }) => {
       if (isOnce) {
         unsub()
       }
+      console.log('uiser', user)
       if (user) {
         callback({ type: AUTH_CONST.SIGNIN, data: user })
         resolve({ type: AUTH_CONST.SIGNIN, data: user })
@@ -23,7 +26,10 @@ export const getUser = (isOnce = false, callback = () => { }) => {
         callback({ type: AUTH_CONST.SIGNOUT, data: {} })
         resolve({ type: AUTH_CONST.SIGNOUT, data: {} })
       }
-    });
+    }, err => {
+      console.log('error', err)
+      throw err
+    })
   })
 }
 
