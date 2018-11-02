@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material/typography": "^0.40.1",
+    "@material/react-material-icon": "^0.6.1",
+    "@material/react-top-app-bar": "^0.6.1",
+    "@material/typography": "^0.41.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "express": "^4.16.4",
@@ -11,8 +13,8 @@
     "next": "^7.0.2",
     "next-routes": "^1.4.2",
     "node-sass": "^4.9.4",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.7.0-alpha",
+    "react-dom": "^16.7.0-alpha",
     "react-redux": "^5.0.7",
     "react-scripts": "2.0.5",
     "redux": "^4.0.1"
@@ -20,18 +22,18 @@
   "scripts": {
     "start": "node server/index.js",
     "build": "next build",
-    "start-built": "node server/index.js",
+    "start-built": "ENV=PRD node server/index.js",
     "start-export": "next export",
     "buitl-and-start": "yarn build && yarn start-built",
     "buitl-and-export": "yarn build && yarn start-export"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^0.0.0"
+  }
 }

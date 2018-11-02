@@ -1,23 +1,18 @@
 const express = require('express')
 const next = require('next')
-const routes = require('../routes/config')
+const routes = require('../routes')
 
-const app = next({ dev: false })
+const production = process.env.ENV === 'PRD"'
+const app = next({ dev: !production })
 
 app.prepare()
   .then(() => {
     const server = express()
-
     server.use(routes.getRequestHandler(
       app,
       async ({ req, res, route, query }) => {
         try {
           const html = await app.renderToHTML(req, res, route.page, query)
-          // Something is wrong with the request, let's skip the cache
-          if (res.statusCode !== 200) {
-            res.send(html)
-            return
-          }
           res.send(html)
         } catch (error) {
           res.sendStatus(400).end()

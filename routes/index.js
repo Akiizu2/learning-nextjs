@@ -1,14 +1,7 @@
-const routes = [
-  { path: '/money-planner', icon: 'attach_money' },
-  { path: '/diary-payment', icon: 'assignment' },
-]
+const router = require('next-routes')
 
-export const validatePath = (path) => {
-  const searched = routes.filter(route => route.path === path)
-  if (searched.length > 0) {
-    return true
-  }
-  return false
-}
+const routes = router()
+  .add('Home', '/', 'index')
+  .add('Test', '/test/:id', 'index')
 
-export default routes
+module.exports = routes

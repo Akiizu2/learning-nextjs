@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "react-app"
+  ],
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "none",
+    "react-hooks/rules-of-hooks": "error"
+  }
+}

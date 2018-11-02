@@ -1,12 +1,20 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react'
+import { Navbar } from '../feature'
 
-class Index extends Component {
-  state = {}
-  render() {
-    return (
-      <div>Index</div>
-    );
+function Index(props) {
+  return (
+    <div>
+      <Navbar />
+      Index
+      </div>
+  )
+}
+
+Index.getInitialProps = async ({ query }) => {
+  const test = query
+  return {
+    test
   }
 }
 
-export default Index;
+export default Index
